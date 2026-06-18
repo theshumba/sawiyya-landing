@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sawiyya — Learn to sign. Close the gap.</title>
+<meta name="description" content="Sawiyya teaches the hearing world Qatari Sign Language through your camera. Together, as equals." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   SAWIYYA — design tokens (LOCKED brand)
+   ============================================================ */
+:root{
+  /* colour */
+  --teal:#0F6E6A; --teal-deep:#0A4F4C; --teal-ink:#16302E;
+  --coral:#E8654C; --coral-soft:#F08A75; --coral-deep:#C54F3A; --coral-edge:#b54530;
+  --gold:#E6B24C; --gold-soft:#F0C879; --gold-deep:#C89A3D; --gold-edge:#c9993e;
+  --sand:#F6EFE3; --paper:#FBF7EF; --ink:#16302E; --muted:#5C726F;
+  --line:#EDE3D2; --chunky:#D9D2C7;
+  /* radius */
+  --r-xl:1rem; --r-2xl:1.5rem; --r-3xl:2rem; --r-bowl:2.5rem;
+  /* spacing rhythm (8px) */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px; --s10:128px;
+  /* shadow */
+  --soft:0 18px 40px -22px rgba(15,110,106,.45);
+  --lift:0 26px 50px -22px rgba(15,110,106,.5);
+  --sh-gold:0 12px 28px -10px rgba(230,178,76,.55);
+  --sh-coral:0 12px 24px -12px rgba(232,101,76,.6);
+  --container:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"Readex Pro",system-ui,sans-serif;
+  background:var(--paper); color:var(--ink);
+  line-height:1.6; overflow-x:hidden;
+  font-size:16px; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{font-family:"Rubik",system-ui,sans-serif;line-height:1.08;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--s5)}
+@media(min-width:768px){.container{padding:0 var(--s7)}}
+
+/* ---- type scale (capped, modular) ---- */
+.h1{font-size:clamp(2.5rem,5vw,4rem)}
+.h2{font-size:clamp(1.75rem,3.2vw,2.75rem)}
+.h3{font-size:clamp(1.25rem,2vw,1.5rem)}
+.lead{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--muted);max-width:60ch}
+.body{font-size:1rem;max-width:62ch;color:var(--muted)}
+.eyebrow{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--teal)}
+.stat-num{font-family:"Rubik";font-weight:800;font-size:clamp(2.25rem,4vw,3.25rem);line-height:1;color:var(--teal)}
+
+/* ---- buttons (chunky) ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
+  font-family:"Readex Pro";font-weight:600;font-size:1rem;
+  height:54px;padding:0 28px;border:none;border-radius:999px;cursor:pointer;
+  transition:transform .12s cubic-bezier(.2,.9,.3,1.4),box-shadow .12s ease;}
+.btn-coral{background:var(--coral);color:#fff;box-shadow:0 6px 0 0 var(--coral-edge),var(--sh-coral)}
+.btn-coral:hover{transform:translateY(-1px);box-shadow:0 7px 0 0 var(--coral-edge),var(--sh-coral)}
+.btn-coral:active{transform:translateY(4px);box-shadow:0 2px 0 0 var(--coral-edge)}
+.btn-teal{background:var(--teal);color:#fff;box-shadow:0 6px 0 0 var(--teal-deep),var(--soft)}
+.btn-teal:hover{transform:translateY(-1px)}
+.btn-teal:active{transform:translateY(4px);box-shadow:0 2px 0 0 var(--teal-deep)}
+.btn-ghost{background:transparent;color:var(--teal);font-weight:600;height:54px;display:inline-flex;align-items:center;gap:var(--s2)}
+.btn-ghost:hover{color:var(--teal-deep)}
+.pulse{position:relative}
+.pulse::after{content:"";position:absolute;inset:0;border-radius:999px;animation:pulse-ring 1.8s ease-out infinite;pointer-events:none}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(230,178,76,.5)}100%{box-shadow:0 0 0 16px rgba(230,178,76,0)}}
+
+.pill{display:inline-flex;align-items:center;gap:var(--s2);font-size:.8125rem;font-weight:600;
+  padding:7px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--teal-ink)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 0 rgba(232,101,76,.5);animation:pulse-ring-coral 1.6s infinite}
+@keyframes pulse-ring-coral{0%{box-shadow:0 0 0 0 rgba(232,101,76,.5)}100%{box-shadow:0 0 0 9px rgba(232,101,76,0)}}
+
+/* ---- reveal on scroll ---- */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.9,.3,1.1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* ============================================================ NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:padding .25s ease,background .25s ease,box-shadow .25s ease;
+  padding:18px 0;background:rgba(251,247,239,0);}
+.nav.scrolled{background:rgba(251,247,239,.85);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:10px 0}
+.nav .container{display:flex;align-items:center;justify-content:space-between;gap:var(--s4)}
+.brand{display:flex;align-items:center;gap:var(--s2);font-family:"Rubik";font-weight:800;font-size:1.35rem;color:var(--teal-ink);letter-spacing:-.02em}
+.brand .mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--teal),var(--teal-deep));
+  display:grid;place-items:center;color:#fff;font-size:1.1rem;box-shadow:var(--soft)}
+.brand .ar{font-family:"Readex Pro";font-weight:700;color:var(--gold-deep);font-size:1.05rem;margin-left:2px}
+.nav-links{display:none;align-items:center;gap:var(--s6)}
+.nav-links a{font-weight:500;color:var(--muted);font-size:.95rem;transition:color .15s}
+.nav-links a:hover{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:var(--s3)}
+.nav .btn{height:44px;padding:0 20px;font-size:.95rem}
+@media(min-width:900px){.nav-links{display:flex}}
+
+/* ---- language toggle ---- */
+.lang-toggle{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:999px;
+  border:1px solid var(--line);background:#fff;color:var(--muted);font-family:"Rubik";font-weight:700;font-size:.8rem;
+  cursor:pointer;transition:border-color .15s,color .15s;line-height:1}
+.lang-toggle:hover{border-color:var(--teal)}
+.lang-toggle .sep{opacity:.4;font-weight:500}
+.lang-toggle .on{color:var(--teal-ink)}
+.lang-toggle .lt-ar{font-family:"Readex Pro";font-weight:600;font-size:.92rem}
+
+/* ============================================================ HERO */
+.hero{position:relative;padding:128px 0 80px;overflow:hidden}
+.hero-grid{display:grid;gap:var(--s7);align-items:center}
+@media(min-width:960px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:var(--s8)}.hero{padding:150px 0 96px}}
+.hero h1{margin:var(--s4) 0 var(--s3)}
+.hero h1 .swap{color:var(--teal)}
+.hero-tagline{display:inline-flex;align-items:center;gap:10px;margin-bottom:var(--s5);
+  font-family:"Rubik";font-weight:700;font-size:1.05rem;color:var(--teal);letter-spacing:-.01em}
+.hero-tagline .ar{font-family:"Readex Pro";font-weight:700;color:var(--gold-deep);font-size:1.25rem}
+.hero-tagline .bar{width:24px;height:2px;background:var(--gold);border-radius:2px;display:inline-block}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)}
+.hero-trust{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s6);color:var(--muted);font-size:.9rem}
+.avatars{display:flex}
+.avatars span{width:30px;height:30px;border-radius:50%;border:2px solid var(--paper);margin-left:-8px;display:grid;place-items:center;font-size:.85rem}
+.avatars span:first-child{margin-left:0}
+.ar-ghost{position:absolute;font-family:"Readex Pro";font-weight:700;color:rgba(15,110,106,.05);
+  font-size:34vw;top:8%;right:-6%;pointer-events:none;user-select:none;z-index:0;line-height:1}
+.blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.5;z-index:0;pointer-events:none}
+.blob.b1{width:260px;height:260px;background:radial-gradient(circle at 30% 30%,var(--gold-soft),transparent 70%);top:-40px;left:-60px}
+.blob.b2{width:320px;height:320px;background:radial-gradient(circle at 30% 30%,var(--coral-soft),transparent 70%);bottom:-80px;right:6%}
+.hero-grid,.hero .container{position:relative;z-index:1}
+
+/* interactive signing card */
+.sign-card{background:#fff;border-radius:var(--r-bowl);padding:var(--s6);box-shadow:var(--lift);border:1px solid var(--line);position:relative}
+.sign-card .label{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);margin-bottom:var(--s4)}
+.hand-stage{aspect-ratio:4/3;border-radius:var(--r-2xl);background:linear-gradient(160deg,var(--sand),#fff);
+  display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid var(--line)}
+.hand{font-size:5.5rem;line-height:1;filter:drop-shadow(0 8px 16px rgba(15,110,106,.18));transition:transform .3s cubic-bezier(.2,.9,.3,1.4)}
+.hand-stage:hover .hand{transform:scale(1.08) rotate(-4deg)}
+.letter-badge{position:absolute;top:14px;left:14px;background:var(--teal);color:#fff;font-family:"Rubik";font-weight:800;
+  width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--soft)}
+.name-input{display:flex;gap:var(--s2);margin-top:var(--s4)}
+.name-input input{flex:1;border:2px solid var(--line);border-radius:999px;padding:0 18px;height:48px;font-family:"Readex Pro";font-size:1rem;color:var(--ink);outline:none;transition:border-color .15s}
+.name-input input:focus{border-color:var(--teal)}
+.name-input button{height:48px;width:48px;border-radius:50%;flex:0 0 48px}
+.fingerspell{display:flex;gap:6px;flex-wrap:wrap;margin-top:var(--s4);min-height:30px}
+.fs-letter{width:30px;height:30px;border-radius:9px;background:var(--sand);display:grid;place-items:center;
+  font-family:"Rubik";font-weight:700;font-size:.85rem;color:var(--teal);opacity:0;transform:scale(.6)}
+.fs-letter.show{animation:pop-in .4s cubic-bezier(.2,.9,.3,1.4) both}
+@keyframes pop-in{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+
+/* ============================================================ generic section */
+section{position:relative}
+.sec{padding:72px 0}
+@media(min-width:768px){.sec{padding:112px 0}}
+.sand-bg{background:var(--sand)}
+.sec-head{max-width:680px;margin:0 auto var(--s8);text-align:center}
+.sec-head .eyebrow{display:inline-block;margin-bottom:var(--s3)}
+.sec-head .lead{margin:var(--s4) auto 0}
+
+/* ============================================================ THE FLIP / meet in the middle */
+.flip-wrap{display:grid;gap:var(--s7);align-items:center}
+@media(min-width:900px){.flip-wrap{grid-template-columns:1fr 1fr}}
+.meet{background:#fff;border:1px solid var(--line);border-radius:var(--r-3xl);padding:var(--s9) var(--s6);box-shadow:var(--soft);position:relative;overflow:hidden}
+.meet-row{display:flex;align-items:center;justify-content:center}
+.meet-side{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--s3);transition:transform 1s cubic-bezier(.2,.9,.3,1.1),opacity 1s ease}
+.meet-side.left{transform:translateX(-32px);opacity:0}
+.meet-side.right{transform:translateX(32px);opacity:0}
+.meet.in .meet-side{transform:none;opacity:1}
+.meet-orb{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;box-shadow:var(--soft)}
+.meet-orb.teal{background:linear-gradient(150deg,var(--teal),var(--teal-deep))}
+.meet-orb.coral{background:linear-gradient(150deg,var(--coral-soft),var(--coral))}
+.meet-orb svg{width:44px;height:48px}
+.meet-label{font-family:"Rubik";font-weight:700;font-size:1rem;color:var(--teal-ink);text-align:center}
+.meet-mid{flex:0 0 auto;padding:0 var(--s4);z-index:2}
+.meet-eq{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-family:"Rubik";font-weight:800;font-size:2rem;color:#fff;line-height:1;background:linear-gradient(150deg,var(--gold-soft),var(--gold));box-shadow:var(--sh-gold);transform:scale(0)}
+.meet.in .meet-eq{animation:pop-in .6s .55s cubic-bezier(.2,.9,.3,1.4) forwards}
+.meet-cap{margin:var(--s6) auto 0;text-align:center;color:var(--muted);font-size:.95rem;max-width:none}
+@media(max-width:560px){.meet{padding:var(--s8) var(--s4)}.meet-orb{width:72px;height:72px}.meet-orb svg{width:34px;height:38px}.meet-eq{width:50px;height:50px;font-size:1.6rem}.meet-mid{padding:0 var(--s2)}.meet-label{font-size:.9rem}}
+
+/* ============================================================ HOW IT WORKS */
+.steps{display:grid;gap:var(--s5)}
+@media(min-width:860px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r-2xl);padding:var(--s6);box-shadow:var(--soft);cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
+.step:hover{transform:translateY(-4px);box-shadow:var(--lift)}
+.step.active{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal),var(--soft)}
+.step .n{width:40px;height:40px;border-radius:12px;background:var(--sand);color:var(--teal);font-family:"Rubik";font-weight:800;display:grid;place-items:center;margin-bottom:var(--s4)}
+.step.active .n{background:var(--teal);color:#fff}
+.step h3{margin-bottom:var(--s2)}
+/* camera mock */
+.cam{margin-top:var(--s7);max-width:520px;margin-left:auto;margin-right:auto;background:var(--teal-ink);border-radius:var(--r-3xl);padding:14px;box-shadow:var(--lift)}
+.cam-screen{aspect-ratio:5/4;border-radius:var(--r-2xl);background:linear-gradient(160deg,#123b39,#0b2b29);position:relative;overflow:hidden;display:grid;place-items:center}
+.cam-hand{font-size:5rem;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cam-outline{position:absolute;inset:18%;border:3px dashed rgba(230,178,76,.6);border-radius:24px;animation:track 4s ease-in-out infinite}
+@keyframes track{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.cam-check{position:absolute;bottom:16px;left:50%;transform:translateX(-50%) scale(.6);opacity:0;background:#fff;color:var(--teal);
+  font-weight:700;padding:8px 18px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:var(--soft);max-width:90%;text-align:center}
+.cam-check.show{animation:pop-in .5s cubic-bezier(.2,.9,.3,1.4) forwards}
+.cam-dot{position:absolute;top:14px;left:14px;display:flex;gap:6px}
+.cam-dot i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)}
+.cam-dot i:first-child{background:var(--coral)}
+
+/* ============================================================ GAMIFIED */
+.game{display:grid;gap:var(--s5)}
+@media(min-width:760px){.game{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1020px){.game{grid-template-columns:repeat(4,1fr)}}
+.gcard{background:#fff;border:1px solid var(--line);border-radius:var(--r-2xl);padding:var(--s6);text-align:center;box-shadow:var(--soft)}
+.gcard .ico{font-size:2rem;margin-bottom:var(--s3)}
+.gcard .big{font-family:"Rubik";font-weight:800;font-size:2.5rem;line-height:1;color:var(--ink)}
+.gcard.coral .big{color:var(--coral)} .gcard.gold .big{color:var(--gold-deep)} .gcard.teal .big{color:var(--teal)}
+.gcard small{color:var(--muted);font-size:.9rem;display:block;margin-top:var(--s2)}
+.xpbar{height:14px;border-radius:999px;background:var(--sand);overflow:hidden;margin-top:var(--s3)}
+.xpfill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  background-size:200% 100%;animation:shimmer 1.8s linear infinite;transition:width 1.4s cubic-bezier(.2,.9,.3,1)}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.ring{position:relative;width:96px;height:96px;margin:0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring .val{position:absolute;inset:0;display:grid;place-items:center;font-family:"Rubik";font-weight:800;font-size:1.2rem;color:var(--teal)}
+.badges{display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap;margin-top:var(--s2)}
+.badge{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:1.4rem;background:var(--sand);box-shadow:inset 0 -3px 0 var(--chunky)}
+.badge.lit{background:linear-gradient(135deg,var(--gold-soft),var(--gold));box-shadow:var(--sh-gold)}
+
+/* ============================================================ LANGUAGES (roadmap) */
+.lang-head{max-width:640px;margin:0 0 var(--s7);text-align:start}
+.lang-head .eyebrow{display:inline-block;margin-bottom:var(--s3)}
+.lang-head .lead{margin:var(--s4) 0 0}
+.lang-live{display:flex;align-items:center;gap:var(--s5);flex-wrap:wrap;
+  background:linear-gradient(135deg,var(--teal),var(--teal-deep));color:#fff;
+  border-radius:var(--r-3xl);padding:var(--s6);box-shadow:var(--lift);margin-bottom:var(--s7)}
+.lang-live .flag{font-size:2.6rem;line-height:1}
+.lang-live h3{color:#fff;margin-bottom:4px}
+.lang-live p{color:rgba(255,255,255,.82);font-size:.95rem;margin:0;max-width:none}
+.lang-live .pill{margin-inline-start:auto;background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.28);color:#fff}
+.lang-live .pill .dot{background:#36d39a;box-shadow:0 0 0 0 rgba(54,211,154,.6);animation:livedot 1.6s infinite}
+@keyframes livedot{70%{box-shadow:0 0 0 7px rgba(54,211,154,0)}100%{box-shadow:0 0 0 0 rgba(54,211,154,0)}}
+.lang-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(2,1fr)}
+@media(min-width:680px){.lang-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:980px){.lang-grid{grid-template-columns:repeat(4,1fr)}}
+.lang-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-2xl);padding:var(--s5);
+  text-align:center;transition:transform .2s ease,box-shadow .2s ease}
+.lang-card:hover{transform:translateY(-3px);box-shadow:var(--soft)}
+.lang-card .flag{font-size:2rem;line-height:1}
+.lang-card .lname{font-family:"Rubik";font-weight:700;margin-top:10px;color:var(--teal-ink);font-size:1rem}
+.lang-card .soon{display:inline-block;margin-top:10px;font-size:.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);background:var(--sand);padding:4px 10px;border-radius:999px}
+.lang-card .notify{display:block;margin:12px auto 0;font-size:.8rem;font-weight:600;color:var(--teal)}
+.lang-card .notify:hover{color:var(--coral)}
+
+/* ============================================================ IMPACT */
+.impact{display:grid;gap:var(--s5)}
+@media(min-width:760px){.impact{grid-template-columns:repeat(3,1fr)}}
+.istat{background:#fff;border:1px solid var(--line);border-radius:var(--r-2xl);padding:var(--s7) var(--s6);text-align:center;box-shadow:var(--soft)}
+
+/* ============================================================ TESTIMONIALS */
+.quotes{display:grid;gap:var(--s5)}
+@media(min-width:760px){.quotes{grid-template-columns:repeat(3,1fr)}}
+.quote{background:#fff;border:1px solid var(--line);border-radius:var(--r-2xl);padding:var(--s6);box-shadow:var(--soft)}
+.quote p{font-size:1.05rem;color:var(--ink);margin-bottom:var(--s4)}
+.who{display:flex;align-items:center;gap:var(--s3)}
+.who .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:1.1rem;background:var(--sand)}
+.who b{display:block;font-size:.95rem} .who small{color:var(--muted)}
+
+/* ============================================================ CTA BAND */
+.cta-band{background:linear-gradient(150deg,var(--teal),var(--teal-deep));color:#fff;text-align:center;border-radius:var(--r-3xl);padding:72px var(--s6);position:relative;overflow:hidden}
+.cta-band h2{color:#fff;margin-bottom:var(--s4)}
+.cta-band .lead{color:rgba(255,255,255,.82);margin:0 auto var(--s7)}
+.cta-band .ar-big{position:absolute;font-family:"Readex Pro";font-weight:700;font-size:24vw;color:rgba(255,255,255,.05);bottom:-8%;right:-2%;pointer-events:none;line-height:1}
+
+/* ============================================================ FOOTER */
+footer{padding:64px 0 40px}
+.foot{display:grid;gap:var(--s6);grid-template-columns:1fr}
+@media(min-width:760px){.foot{grid-template-columns:1.4fr 1fr 1fr}}
+.foot a{color:var(--muted);display:block;padding:5px 0;font-size:.95rem}
+.foot a:hover{color:var(--teal)}
+.foot h4{font-family:"Rubik";font-size:.95rem;margin-bottom:var(--s3)}
+.foot-bottom{margin-top:var(--s7);padding-top:var(--s5);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:var(--s4);justify-content:space-between;color:var(--muted);font-size:.88rem}
+
+/* confetti */
+.confetti{position:fixed;width:10px;height:14px;z-index:99;pointer-events:none;border-radius:2px}
+
+/* ============================================================ RTL / ARABIC */
+[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3,[dir=rtl] .display,[dir=rtl] .stat-num,
+[dir=rtl] .gcard .big,[dir=rtl] .lang-card .lname,[dir=rtl] .meet-label,
+[dir=rtl] .brand,[dir=rtl] .foot h4{font-family:"Readex Pro",system-ui,sans-serif}
+[dir=rtl] .brand .ar{margin-left:0;margin-right:2px}
+[dir=rtl] .avatars span{margin-left:0;margin-right:-8px}
+[dir=rtl] .avatars span:first-child{margin-right:0}
+[dir=rtl] .letter-badge{left:auto;right:14px}
+[dir=rtl] .cam-dot{left:auto;right:14px}
+[dir=rtl] .blob.b1{left:auto;right:-60px}
+[dir=rtl] .blob.b2{right:auto;left:6%}
+[dir=rtl] .ar-ghost{right:auto;left:-6%}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .meet-side,.meet-eq{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a class="brand" href="#top"><span class="mark">✋</span>Sawiyya<span class="ar">سويّة</span></a>
+    <div class="nav-links">
+      <a href="#flip" data-ar="رسالتنا">The mission</a>
+      <a href="#how" data-ar="كيف تعمل">How it works</a>
+      <a href="#languages" data-ar="اللغات">Languages</a>
+      <a href="#impact" data-ar="الأثر">Impact</a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language" aria-pressed="false">
+        <span class="lt-en on">EN</span><span class="sep">/</span><span class="lt-ar">عربي</span>
+      </button>
+      <a class="btn btn-coral pulse" data-app href="#start" data-ar="ابدأ التعلّم">Start learning</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="ar-ghost">سويّة</div>
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="pill reveal"><span class="dot"></span> <span data-ar="نُعلّم الآن لغة الإشارة القطرية">Now teaching Qatari Sign Language</span></span>
+        <h1 class="h1 reveal d1" data-ar="تعلّم لغة الإشارة.<br><span class='swap'>لنردم الفجوة.</span>">Learn to sign.<br><span class="swap">Close the gap.</span></h1>
+        <div class="hero-tagline reveal d1" data-ar="<span class='ar'>سويّة</span><span class='bar'></span>معاً، كأنداد."><span class="ar">سويّة</span><span class="bar"></span>Together, as equals.</div>
+        <p class="lead reveal d2" data-ar="معظم التطبيقات تُعلّم الصُمّ كيف يتأقلمون مع عالمنا. سويّة تقلب المعادلة — نُعلّم العالم السامع لغة الإشارة، حتى لا يقع عبء اللقاء في المنتصف على طرفٍ واحد. دروس قصيرة. كاميرتك. إشارات حقيقية.">Most apps teach Deaf people to fit our world. Sawiyya flips it — we teach the <strong>hearing world to sign</strong>, so meeting halfway stops being one side's job. Bite-sized lessons. Your camera. Real signs.</p>
+        <div class="hero-cta reveal d3">
+          <a class="btn btn-coral pulse" data-app href="#start" data-ar="ابدأ التعلّم — مجاناً">Start learning — free</a>
+          <a class="btn btn-ghost" href="#how" data-ar="شاهد كيف تعمل ←">See how it works →</a>
+        </div>
+        <div class="hero-trust reveal d4">
+          <div class="avatars">
+            <span style="background:#F0C879">🧕</span><span style="background:#F08A75">🧑</span>
+            <span style="background:#9fd3cf">👵</span><span style="background:#cbb8e6">🧑‍🦱</span>
+          </div>
+          <span data-ar="انضمّ إلى من يتعلّمون ليلتقوا مجتمع الصُمّ في منتصف الطريق.">Join the people learning to meet the Deaf community halfway.</span>
+        </div>
+      </div>
+
+      <!-- interactive signing card -->
+      <div class="sign-card reveal d2">
+        <div class="label">
+          <span class="eyebrow" data-ar="جرّبها — اكتب اسمك بالإشارات">Try it — spell your name in signs</span>
+          <span class="pill" style="padding:5px 10px" data-ar="قطر">QSL</span>
+        </div>
+        <div class="hand-stage">
+          <span class="letter-badge" id="letterBadge">أ</span>
+          <span class="hand" id="heroHand">🤟</span>
+        </div>
+        <div class="name-input">
+          <input id="nameInput" type="text" placeholder="Type your name…" data-ar-ph="اكتب اسمك…" maxlength="14" aria-label="Your name" />
+          <button class="btn btn-teal" id="spellBtn" aria-label="Fingerspell">→</button>
+        </div>
+        <div class="fingerspell" id="fingerspell" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- THE FLIP -->
+<section class="sec sand-bg" id="flip">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="التحوّل">The flip</span>
+      <h2 class="h2" data-ar="لطالما تحمّل طرفٌ واحد عبء التواصل.">For too long, one side did all the bridging.</h2>
+      <p class="lead" data-ar="هناك نحو 70 مليون أصمّ حول العالم — وقد اعتادوا دائماً أن يتأقلموا معنا. سويّة تعيد التوازن. حين يتعلّم السامعون الإشارة، يصبح التواصل طريقاً من اتجاهين.">There are around <strong>70 million</strong> Deaf people worldwide — and they've always had to adapt to us. Sawiyya rebalances it. When hearing people learn to sign, connection becomes a two-way street.</p>
+    </div>
+    <div class="flip-wrap">
+      <div class="reveal">
+        <p class="body" style="font-size:1.1rem;color:var(--ink)" data-ar="تخيّل مقهى يردّ فيه العامل بالإشارة. زميلٌ في الصف يقول «صباح الخير» بيديه. جارٌ يلتقيك حيث أنت.">Imagine a café where the barista signs back. A classmate who can say <em>“good morning”</em> with their hands. A neighbour who meets you where you are.</p>
+        <p class="body" style="margin-top:16px" data-ar="هذا ليس إحساناً. هذه سويّة — أي «معاً، كأنداد». كل سامعٍ يتعلّم هو جدارٌ أقل بين عالمين.">That's not charity. That's <strong>sawiyya</strong> — Arabic for <em>“together, as equals.”</em> Every hearing person who learns is one less wall between two worlds.</p>
+      </div>
+      <div class="meet reveal d2" id="meet">
+        <div class="meet-row">
+          <div class="meet-side left">
+            <div class="meet-orb teal" aria-hidden="true">
+              <svg viewBox="0 0 48 56" fill="none"><path d="M16 30V14c0-3 5-3 5 0v12m0-1V10c0-3 5-3 5 0v15m0-1V12c0-3 5-3 5 0v16c0 10-6 16-13 16-5 0-8-3-11-7l-2-4c-1-2 2-5 4-2l3 3" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="meet-label" data-ar="مجتمع الصُمّ">Deaf community</span>
+          </div>
+          <div class="meet-mid"><div class="meet-eq">=</div></div>
+          <div class="meet-side right">
+            <div class="meet-orb coral" aria-hidden="true">
+              <svg viewBox="0 0 48 56" fill="none"><circle cx="24" cy="18" r="9" stroke="#fff" stroke-width="2.6"/><path d="M9 47c0-9 7-15 15-15s15 6 15 15" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="meet-label" data-ar="العالم السامع">Hearing world</span>
+          </div>
+        </div>
+        <p class="meet-cap" data-ar="كلا الطرفين يتحرّك. كلاهما يلتقي في المنتصف.">Both sides move. Both sides meet in the middle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec" id="how">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="كيف تعمل">How it works</span>
+      <h2 class="h2" data-ar="شاهد. أشِر. أتقِنها.">Watch. Sign. Get it right.</h2>
+      <p class="lead" data-ar="كاميرتك تصبح معلّمك. لا أدوات، لا ضغط — فقط أنت ويداك ونتيجة فورية.">Your camera becomes your teacher. No equipment, no pressure — just you, your hands, and instant feedback.</p>
+    </div>
+    <div class="steps">
+      <div class="step active reveal" data-step="0">
+        <div class="n">1</div><h3 class="h3" data-ar="شاهد الإشارة">Watch the sign</h3>
+        <p class="body" data-ar="عرضٌ واضح من مُشيرٍ قطري أصيل يُريك حركة اليد تماماً.">A clear, looping demo from a native QSL signer shows you exactly how the hand moves.</p>
+      </div>
+      <div class="step reveal d1" data-step="1">
+        <div class="n">2</div><h3 class="h3" data-ar="أعِد الإشارة">Sign it back</h3>
+        <p class="body" data-ar="ارفع يدك أمام الكاميرا. سويّة تراقب يدك وتُريك النتيجة فوراً.">Hold your hand up to the camera. Sawiyya watches your hand and shows you instantly.</p>
+      </div>
+      <div class="step reveal d2" data-step="2">
+        <div class="n">3</div><h3 class="h3" data-ar="نتيجة فورية">Instant feedback</h3>
+        <p class="body" data-ar="أتقنتها؟ احتفال ونقاط. لم تُتقِنها بعد؟ توجيهٌ لطيف لما ينبغي تصحيحه.">Nailed it? Confetti and points. Not quite? A gentle nudge on exactly what to fix.</p>
+      </div>
+    </div>
+    <!-- camera mock -->
+    <div class="cam reveal d2" id="camMock">
+      <div class="cam-screen">
+        <div class="cam-dot"><i></i><i></i><i></i></div>
+        <div class="cam-outline"></div>
+        <div class="cam-hand" id="camHand">🤟</div>
+        <div class="cam-check" id="camCheck">✓ Correct — that's “I love you”!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMIFIED -->
+<section class="sec sand-bg" id="game">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="تعلّمٌ يدوم">Learning that sticks</span>
+      <h2 class="h2" data-ar="تعلّمٌ يشبه اللعب.">Learning that feels like a game.</h2>
+      <p class="lead" data-ar="سلاسل يومية ونقاط وأوسمة تجعل التمرين ممتعاً. تقدّمٌ تشعر به كل يوم.">Daily streaks, points and badges that make practising fun. Progress you can feel every single day.</p>
+    </div>
+    <div class="game">
+      <div class="gcard coral reveal">
+        <div class="ico">🔥</div>
+        <div class="big"><span class="count" data-to="14">0</span></div>
+        <small data-ar="يوم متتالٍ">day streak</small>
+      </div>
+      <div class="gcard gold reveal d1">
+        <div class="ico">⭐</div>
+        <div class="big"><span class="count" data-to="2480">0</span></div>
+        <small data-ar="نقطة مكتسبة">points earned</small>
+        <div class="xpbar"><div class="xpfill" id="xpfill"></div></div>
+      </div>
+      <div class="gcard teal reveal d2">
+        <div class="ico">🎯</div>
+        <div class="ring">
+          <svg width="96" height="96"><circle cx="48" cy="48" r="40" fill="none" stroke="#F6EFE3" stroke-width="10"/>
+          <circle id="ringArc" cx="48" cy="48" r="40" fill="none" stroke="#0F6E6A" stroke-width="10" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
+          <span class="val" id="ringVal">0%</span>
+        </div>
+        <small data-ar="من الأبجدية أُتقنت">alphabet mastered</small>
+      </div>
+      <div class="gcard reveal d3">
+        <div class="ico">🏅</div>
+        <div class="big" style="font-size:1.1rem;color:var(--ink)" data-ar="الإنجازات">Achievements</div>
+        <div class="badges" id="badges">
+          <span class="badge">🌱</span><span class="badge">👋</span><span class="badge">💬</span><span class="badge">🤝</span>
+        </div>
+        <small data-ar="تُفتح مع تقدّمك">unlock as you go</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="sec" id="languages">
+  <div class="container">
+    <div class="lang-head reveal">
+      <span class="eyebrow" data-ar="خارطة الطريق">The roadmap</span>
+      <h2 class="h2" style="margin-top:var(--s3)" data-ar="ابدأ بقطر. ثم العالم العربي كلّه.">Start with Qatar. Then the whole Arab world.</h2>
+      <p class="lead" data-ar="لغة الإشارة القطرية متاحة اليوم بكل فخر. وبعدها، حركةٌ تمتد عبر المنطقة — لغة تواصلٍ مشتركة تلو الأخرى.">QSL is live and proud today. Next, a movement spreading across the region — one shared language of connection at a time.</p>
+    </div>
+
+    <div class="lang-live reveal">
+      <span class="flag">🇶🇦</span>
+      <div>
+        <h3 class="h3" data-ar="لغة الإشارة القطرية">Qatari Sign Language</h3>
+        <p data-ar="متاحة الآن — دورة كاملة، مُشيرون أصيلون، نتيجة فورية.">Live now — full course, native signers, instant feedback.</p>
+      </div>
+      <span class="pill"><span class="dot"></span> <span data-ar="متاحة الآن">Live now</span></span>
+    </div>
+
+    <div class="lang-grid">
+      <div class="lang-card reveal"><div class="flag">🇸🇦</div><div class="lname" data-ar="إشارة السعودية">Saudi SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal d1"><div class="flag">🇦🇪</div><div class="lname" data-ar="إشارة الإمارات">Emirati SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal d2"><div class="flag">🇯🇴</div><div class="lname" data-ar="إشارة الشام">Levantine SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal d3"><div class="flag">🇪🇬</div><div class="lname" data-ar="إشارة مصر">Egyptian SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal"><div class="flag">🇰🇼</div><div class="lname" data-ar="إشارة الكويت">Kuwaiti SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal d1"><div class="flag">🇧🇭</div><div class="lname" data-ar="إشارة البحرين">Bahraini SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal d2"><div class="flag">🇴🇲</div><div class="lname" data-ar="إشارة عُمان">Omani SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal d3"><div class="flag">🇲🇦</div><div class="lname" data-ar="إشارة المغرب العربي">Maghrebi SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="sec sand-bg" id="impact">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="لماذا يهمّ هذا">Why it matters</span>
+      <h2 class="h2" data-ar="إشارات صغيرة. دمجٌ حقيقي.">Small signs. Real inclusion.</h2>
+    </div>
+    <div class="impact">
+      <div class="istat reveal"><div class="stat-num"><span class="count" data-to="34">0</span></div><p class="body" style="margin:8px auto 0;text-align:center" data-ar="إشارة لتُتقنها في أسبوعك الأول">QSL signs to master in your first week</p></div>
+      <div class="istat reveal d1"><div class="stat-num"><span class="count" data-to="70">0</span>M</div><p class="body" style="margin:8px auto 0;text-align:center" data-ar="مليون أصمّ حول العالم لطالما تحمّلوا التأقلم">Deaf people worldwide who've always done the adapting</p></div>
+      <div class="istat reveal d2"><div class="stat-num"><span class="count" data-to="5">0</span> min</div><p class="body" style="margin:8px auto 0;text-align:center" data-ar="دقائق يومياً تكفي للبدء في ردم الفجوة">a day is all it takes to start bridging the gap</p></div>
+    </div>
+    <p class="body reveal" style="text-align:center;margin:40px auto 0" data-ar="صُمّمت بفخر للمشاركة في جائزة مدى للابتكار — تقنية إتاحة للعالم العربي.">Proudly built as an entry for the <strong>Mada Innovation Award</strong> — accessibility technology for the Arab world.</p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="movement">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-ar="انضمّ إلى الحركة">Join the movement</span>
+      <h2 class="h2" data-ar="النّاس يلتقون في منتصف الطريق بالفعل.">People are already meeting halfway.</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote reveal"><p data-ar="«أشرتُ بـ’شكراً‘ لزميلٍ أصمّ فأشرق وجهه بالكامل. خمس دقائق يومياً فعلت ذلك.»">“I signed ‘thank you’ to a Deaf colleague and his whole face lit up. Five minutes a day did that.”</p><div class="who"><span class="av" style="background:#F0C879">👨</span><div><b data-ar="خالد">Khalid</b><small data-ar="الدوحة">Doha</small></div></div></div>
+      <div class="quote reveal d1"><p data-ar="«ابنتي تتعلّم أسرع منّي الآن. نتمرّن على الإشارات وقت العشاء — إنها لعبتنا المفضّلة.»">“My daughter learns faster than me now. We practise signs at dinner — it's our favourite game.”</p><div class="who"><span class="av" style="background:#F08A75">🧕</span><div><b data-ar="مريم">Mariam</b><small data-ar="الوكرة">Al Wakrah</small></div></div></div>
+      <div class="quote reveal d2"><p data-ar="«أخيراً تطبيق يضع الجهد علينا، لا على مجتمع الصُمّ. هذا هو بيت القصيد.»">“Finally an app that puts the effort on us, not on the Deaf community. That's the whole point.”</p><div class="who"><span class="av" style="background:#9fd3cf">🧑</span><div><b data-ar="سارة">Sara</b><small data-ar="منظمة تعليمية">Education NGO</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="sec" id="start">
+  <div class="container">
+    <div class="cta-band reveal">
+      <span class="ar-big">سويّة</span>
+      <span class="eyebrow" style="color:var(--gold-soft)" data-ar="معاً، كأنداد">Together, as equals</span>
+      <h2 class="h2" style="margin-top:12px" data-ar="هل أنت مستعدّ للقاء العالم في منتصف الطريق؟">Ready to meet the world halfway?</h2>
+      <p class="lead" data-ar="تعلّم إشاراتك القطرية الأولى اليوم. مجاناً، بمتعة، وخمس دقائق تكفي.">Learn your first Qatari signs today. Free, joyful, and five minutes is all it takes.</p>
+      <a class="btn btn-coral pulse" id="finalCta" data-app href="#top" style="height:58px;font-size:1.05rem" data-ar="ابدأ التعلّم — مجاناً 🎉">Start learning — free 🎉</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" style="margin-bottom:12px"><span class="mark">✋</span>Sawiyya<span class="ar">سويّة</span></a>
+        <p class="body" style="font-size:.95rem" data-ar="نُعلّم العالم السامع لغة الإشارة — بدءاً بلغة الإشارة القطرية. مشاركة في جائزة مدى للابتكار.">Teaching the hearing world to sign — starting with Qatari Sign Language. An entry for the Mada Innovation Award.</p>
+      </div>
+      <div>
+        <h4 data-ar="تعلّم">Learn</h4>
+        <a href="#how" data-ar="كيف تعمل">How it works</a><a href="#game" data-ar="الدروس">Lessons</a><a href="#languages" data-ar="اللغات">Languages</a>
+      </div>
+      <div>
+        <h4 data-ar="سويّة">Sawiyya</h4>
+        <a href="#flip" data-ar="رسالتنا">Our mission</a><a href="#impact" data-ar="الأثر">Impact</a><a href="#start" data-app data-ar="ابدأ">Get started</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span data-ar="© 2026 سويّة — معاً، كأنداد.">© 2026 Sawiyya · سويّة — together, as equals.</span>
+      <span data-ar="صُنع بـ ✋ لمجتمع الصُمّ في قطر.">Made with ✋ for the Deaf community of Qatar.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG — where "Start learning" sends people (the web app).
+   Change this ONE line to your real app URL.
+   ============================================================ */
+const APP_URL='https://theshumba.github.io/sawiyya/';
+document.querySelectorAll('[data-app]').forEach(a=>{a.setAttribute('href',APP_URL);});
+
+let lang='en';
+
+/* ---------- scroll reveals ---------- */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- nav shrink ---------- */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
+
+/* ---------- hero hand cycle + letter badge ---------- */
+const hands=['🤟','✋','👌','👋','🤙','☝️','✌️'];
+const arabicL=['أ','ب','ت','ث','ج','ح','خ'];
+let hi=0;const heroHand=document.getElementById('heroHand'),letterBadge=document.getElementById('letterBadge');
+setInterval(()=>{hi=(hi+1)%hands.length;heroHand.textContent=hands[hi];letterBadge.textContent=arabicL[hi];},1600);
+
+/* ---------- fingerspell name ---------- */
+const spell=()=>{
+  const v=(document.getElementById('nameInput').value||'sawiyya').replace(/[^a-z]/gi,'').toUpperCase().slice(0,14);
+  const wrap=document.getElementById('fingerspell');wrap.innerHTML='';
+  [...v].forEach((ch,i)=>{const s=document.createElement('span');s.className='fs-letter';s.textContent=ch;wrap.appendChild(s);
+    setTimeout(()=>s.classList.add('show'),i*120);});
+  if(v.length)setTimeout(()=>burst(document.getElementById('spellBtn')),v.length*120+200);
+};
+document.getElementById('spellBtn').onclick=spell;
+document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')spell();});
+
+/* ---------- how-it-works steps + camera mock ---------- */
+const steps=[...document.querySelectorAll('.step')];
+const camHand=document.getElementById('camHand'),camCheck=document.getElementById('camCheck');
+const stepHands=['👀','🤟','🎉'];
+const stepMsgEN=['Watch closely…','Now sign it back…','✓ Correct — that’s “I love you”!'];
+const stepMsgAR=['راقب جيداً…','الآن أعِد الإشارة…','✓ أحسنت — هذه «أحبّك»!'];
+let cs=0;
+function setStep(i){steps.forEach(s=>s.classList.remove('active'));steps[i].classList.add('active');
+  camHand.textContent=stepHands[i];camCheck.textContent=(lang==='ar'?stepMsgAR:stepMsgEN)[i];
+  camCheck.classList.toggle('show',i===2);if(i===2)burst(document.getElementById('camMock'));}
+steps.forEach(s=>s.onclick=()=>{cs=+s.dataset.step;setStep(cs);});
+setInterval(()=>{cs=(cs+1)%3;setStep(cs);},2600);
+
+/* ---------- count-up + gamified fills ---------- */
+function countUp(el){const to=+el.dataset.to;const dur=1200,t0=performance.now();
+  (function step(t){const p=Math.min((t-t0)/dur,1);el.textContent=Math.round(to*(p<1?1-Math.pow(1-p,3):1));if(p<1)requestAnimationFrame(step);})(t0);}
+const gObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  if(e.target.classList.contains('count'))countUp(e.target);
+  if(e.target.id==='xpfill')e.target.style.width='72%';
+  if(e.target.id==='ringArc'){e.target.style.transition='stroke-dashoffset 1.5s ease';e.target.style.strokeDashoffset=251*(1-.62);
+    let rv=0;const ri=setInterval(()=>{rv++;document.getElementById('ringVal').textContent=rv+'%';if(rv>=62)clearInterval(ri);},20);}
+  gObs.unobserve(e.target);}});},{threshold:.4});
+document.querySelectorAll('.count,#xpfill,#ringArc').forEach(el=>gObs.observe(el));
+/* light up badges progressively */
+const bObs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  [...e.target.children].forEach((b,i)=>setTimeout(()=>b.classList.add('lit'),i*300));bObs.unobserve(e.target);}});},{threshold:.5});
+bObs.observe(document.getElementById('badges'));
+
+/* ---------- confetti ---------- */
+function burst(anchor){
+  const r=(anchor||document.body).getBoundingClientRect();
+  const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const cols=['#E8654C','#E6B24C','#0F6E6A','#F08A75','#F0C879'];
+  for(let i=0;i<26;i++){
+    const c=document.createElement('div');c.className='confetti';
+    c.style.background=cols[i%cols.length];c.style.left=cx+'px';c.style.top=cy+'px';
+    document.body.appendChild(c);
+    const ang=Math.random()*Math.PI*2, vel=60+Math.random()*120;
+    const dx=Math.cos(ang)*vel, dy=Math.sin(ang)*vel-60;
+    c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},
+      {transform:`translate(${dx}px,${dy+260}px) rotate(${Math.random()*720}deg)`,opacity:0}],
+      {duration:1100+Math.random()*500,easing:'cubic-bezier(.2,.6,.3,1)'}).onfinish=()=>c.remove();
+  }
+}
+document.getElementById('finalCta').addEventListener('click',e=>burst(e.currentTarget));
+/* notify-me pills celebrate too */
+document.querySelectorAll('.lang-card .notify').forEach(a=>a.addEventListener('click',e=>burst(e.currentTarget)));
+
+/* ---------- hero blobs follow cursor (subtle) ---------- */
+const b1=document.querySelector('.blob.b1'),b2=document.querySelector('.blob.b2');
+addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
+  b1.style.transform=`translate(${x*24}px,${y*24}px)`;b2.style.transform=`translate(${x*-30}px,${y*-20}px)`;});
+
+/* ---------- language toggle (EN ⇄ AR + RTL) ---------- */
+const htmlEl=document.documentElement;
+const langBtn=document.getElementById('langToggle');
+const phEl=document.getElementById('nameInput');
+const phEN=phEl?phEl.getAttribute('placeholder'):'';
+/* cache the English markup so we can restore it */
+document.querySelectorAll('[data-ar]').forEach(el=>el.dataset.en=el.innerHTML);
+function setLang(l){
+  lang=l; const ar=l==='ar';
+  htmlEl.lang=ar?'ar':'en';
+  htmlEl.dir=ar?'rtl':'ltr';
+  document.querySelectorAll('[data-ar]').forEach(el=>{el.innerHTML=ar?el.dataset.ar:el.dataset.en;});
+  if(phEl)phEl.setAttribute('placeholder',ar?(phEl.dataset.arPh||phEN):phEN);
+  if(langBtn){
+    langBtn.querySelector('.lt-en').classList.toggle('on',!ar);
+    langBtn.querySelector('.lt-ar').classList.toggle('on',ar);
+    langBtn.setAttribute('aria-pressed',String(ar));
+  }
+  spell();         /* re-seed fingerspell */
+  setStep(cs);     /* refresh camera caption language */
+}
+if(langBtn)langBtn.addEventListener('click',()=>setLang(lang==='en'?'ar':'en'));
+
+/* seed fingerspell with the brand name */
+spell();
+</script>
+</body>
+</html>
