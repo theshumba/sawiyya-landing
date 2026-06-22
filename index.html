@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sawiyya — Learn to sign. Close the gap.</title>
 <meta name="description" content="Sawiyya teaches the hearing world Qatari Sign Language through your camera. Together, as equals." />
+<!-- Privacy-friendly analytics (PostHog, EU, IPs anonymised — page views + country only) -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_F5sfdqn2hYZnrQVUKfoPb2uwOYkzgRo8drefABMmOnc',{api_host:'https://eu.i.posthog.com',person_profiles:'identified_only',capture_pageview:true});
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -133,7 +138,8 @@ img{max-width:100%;display:block}
 .hand-stage{aspect-ratio:4/3;border-radius:var(--r-2xl);background:linear-gradient(160deg,var(--sand),#fff);
   display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid var(--line)}
 .hand{font-size:5.5rem;line-height:1;filter:drop-shadow(0 8px 16px rgba(15,110,106,.18));transition:transform .3s cubic-bezier(.2,.9,.3,1.4)}
-.hand-stage:hover .hand{transform:scale(1.08) rotate(-4deg)}
+.hand-img{width:66%;max-width:230px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(15,110,106,.2));transition:transform .4s cubic-bezier(.2,.9,.3,1.4)}
+.hand-stage:hover .hand,.hand-stage:hover .hand-img{transform:scale(1.06) rotate(-3deg)}
 .letter-badge{position:absolute;top:14px;left:14px;background:var(--teal);color:#fff;font-family:"Rubik";font-weight:800;
   width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--soft)}
 .name-input{display:flex;gap:var(--s2);margin-top:var(--s4)}
@@ -184,19 +190,30 @@ section{position:relative}
 .step .n{width:40px;height:40px;border-radius:12px;background:var(--sand);color:var(--teal);font-family:"Rubik";font-weight:800;display:grid;place-items:center;margin-bottom:var(--s4)}
 .step.active .n{background:var(--teal);color:#fff}
 .step h3{margin-bottom:var(--s2)}
-/* camera mock */
+/* camera mock — mirrors the real in-app camera drill */
 .cam{margin-top:var(--s7);max-width:520px;margin-left:auto;margin-right:auto;background:var(--teal-ink);border-radius:var(--r-3xl);padding:14px;box-shadow:var(--lift)}
+.cam-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:2px 6px 12px;flex-wrap:wrap}
+.cam-status{display:inline-flex;align-items:center;gap:8px;color:#fff;font-family:"Rubik";font-weight:600;font-size:.82rem;opacity:.92}
+.cam-status i{width:9px;height:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 0 rgba(232,101,76,.6);animation:cam-ping 1.6s ease-out infinite}
+.cam.s1 .cam-status i,.cam.s2 .cam-status i{background:#5fd39a;animation:none}
+@keyframes cam-ping{0%{box-shadow:0 0 0 0 rgba(232,101,76,.5)}100%{box-shadow:0 0 0 10px rgba(232,101,76,0)}}
+.cam-goal{color:var(--gold);font-family:"Rubik";font-weight:700;font-size:.82rem}
 .cam-screen{aspect-ratio:5/4;border-radius:var(--r-2xl);background:linear-gradient(160deg,#123b39,#0b2b29);position:relative;overflow:hidden;display:grid;place-items:center}
-.cam-hand{font-size:5rem;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.cam-outline{position:absolute;inset:18%;border:3px dashed rgba(230,178,76,.6);border-radius:24px;animation:track 4s ease-in-out infinite}
-@keyframes track{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.cam-ref{position:absolute;top:14px;right:14px;width:78px;height:78px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:7px;backdrop-filter:blur(4px)}
+.cam-ref img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+.cam-skeleton{position:absolute;width:62%;max-width:260px;opacity:0;transform:scale(.92);transition:opacity .5s,transform .5s}
+.cam-skeleton .sk-nodes circle,.cam-skeleton .sk-lines path{filter:drop-shadow(0 0 4px rgba(230,178,76,.45))}
+.cam.s1 .cam-skeleton,.cam.s2 .cam-skeleton{opacity:1;transform:scale(1)}
+.cam.s2 .cam-skeleton{opacity:.5}
 .cam-check{position:absolute;bottom:16px;left:50%;transform:translateX(-50%) scale(.6);opacity:0;background:#fff;color:var(--teal);
-  font-weight:700;padding:8px 18px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:var(--soft);max-width:90%;text-align:center}
-.cam-check.show{animation:pop-in .5s cubic-bezier(.2,.9,.3,1.4) forwards}
+  font-weight:700;padding:9px 18px;border-radius:999px;display:flex;align-items:center;gap:8px;box-shadow:var(--soft);max-width:90%;text-align:center;font-size:.92rem}
+.cam-check .ck{color:#1f9d6b;font-weight:900}
+.cam.s2 .cam-check{animation:pop-in .5s cubic-bezier(.2,.9,.3,1.4) forwards}
 .cam-dot{position:absolute;top:14px;left:14px;display:flex;gap:6px}
 .cam-dot i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.3)}
 .cam-dot i:first-child{background:var(--coral)}
+.cam-privacy{margin:12px 4px 2px;text-align:center;color:rgba(255,255,255,.55);font-size:.72rem;font-family:"Readex Pro"}
+[dir=rtl] .cam-ref{right:auto;left:14px}
 
 /* ============================================================ GAMIFIED */
 .game{display:grid;gap:var(--s5)}
@@ -349,7 +366,7 @@ footer{padding:64px 0 40px}
         </div>
         <div class="hand-stage">
           <span class="letter-badge" id="letterBadge">أ</span>
-          <span class="hand" id="heroHand">🤟</span>
+          <img class="hand-img" id="heroHand" src="brand/stitch-34.png" alt="The Sawiyya sign for ‘I love you’" />
         </div>
         <div class="name-input">
           <input id="nameInput" type="text" placeholder="Type your name…" data-ar-ph="اكتب اسمك…" maxlength="14" aria-label="Your name" />
@@ -420,12 +437,33 @@ footer{padding:64px 0 40px}
     </div>
     <!-- camera mock -->
     <div class="cam reveal d2" id="camMock">
+      <!-- top status bar — mirrors the real in-app camera drill -->
+      <div class="cam-bar">
+        <span class="cam-status" id="camStatus"><i></i><span>Detecting hand…</span></span>
+        <span class="cam-goal" data-ar="الإشارة: أحبّك">Sign: I love you</span>
+      </div>
       <div class="cam-screen">
         <div class="cam-dot"><i></i><i></i><i></i></div>
-        <div class="cam-outline"></div>
-        <div class="cam-hand" id="camHand">🤟</div>
-        <div class="cam-check" id="camCheck">✓ Correct — that's “I love you”!</div>
+        <!-- reference card: the real Sawiyya sign to mirror -->
+        <div class="cam-ref"><img src="brand/stitch-34.png" alt="Reference sign for ‘I love you’" /></div>
+        <!-- live hand skeleton — the real recognizer's view -->
+        <svg class="cam-skeleton" id="camSkeleton" viewBox="0 0 200 200" aria-hidden="true">
+          <g class="sk-lines" stroke="#E6B24C" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M100 152 L70 112 M100 152 L92 98 M100 152 L108 94 M100 152 L124 102 M100 152 L138 122"/>
+            <path d="M70 112 L58 88 M92 98 L88 60 M108 94 L112 52 M124 102 L134 70 M138 122 L150 102"/>
+          </g>
+          <g class="sk-nodes" fill="#E8654C">
+            <circle cx="100" cy="152" r="6"/>
+            <circle cx="70" cy="112" r="4"/><circle cx="58" cy="88" r="4"/>
+            <circle cx="92" cy="98" r="4"/><circle cx="88" cy="60" r="4.5"/>
+            <circle cx="108" cy="94" r="4"/><circle cx="112" cy="52" r="4.5"/>
+            <circle cx="124" cy="102" r="4"/><circle cx="134" cy="70" r="4"/>
+            <circle cx="138" cy="122" r="4"/><circle cx="150" cy="102" r="4.5"/>
+          </g>
+        </svg>
+        <div class="cam-check" id="camCheck"><span class="ck">✓</span> <span data-ar="أحسنت — هذه «أحبّك»!">Correct — that's “I love you”!</span></div>
       </div>
+      <p class="cam-privacy" data-ar="يعمل على جهازك — لا يغادر أي فيديو جهازك أبداً 🔒">On your device — no video ever leaves your device 🔒</p>
     </div>
   </div>
 </section>
@@ -588,11 +626,10 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
 
-/* ---------- hero hand cycle + letter badge ---------- */
-const hands=['🤟','✋','👌','👋','🤙','☝️','✌️'];
+/* ---------- hero letter badge cycle (real sign image stays put) ---------- */
 const arabicL=['أ','ب','ت','ث','ج','ح','خ'];
-let hi=0;const heroHand=document.getElementById('heroHand'),letterBadge=document.getElementById('letterBadge');
-setInterval(()=>{hi=(hi+1)%hands.length;heroHand.textContent=hands[hi];letterBadge.textContent=arabicL[hi];},1600);
+let hi=0;const letterBadge=document.getElementById('letterBadge');
+setInterval(()=>{hi=(hi+1)%arabicL.length;letterBadge.textContent=arabicL[hi];},1600);
 
 /* ---------- fingerspell name ---------- */
 const spell=()=>{
@@ -605,17 +642,19 @@ const spell=()=>{
 document.getElementById('spellBtn').onclick=spell;
 document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')spell();});
 
-/* ---------- how-it-works steps + camera mock ---------- */
+/* ---------- how-it-works steps + live camera-drill mock ---------- */
 const steps=[...document.querySelectorAll('.step')];
-const camHand=document.getElementById('camHand'),camCheck=document.getElementById('camCheck');
-const stepHands=['👀','🤟','🎉'];
-const stepMsgEN=['Watch closely…','Now sign it back…','✓ Correct — that’s “I love you”!'];
-const stepMsgAR=['راقب جيداً…','الآن أعِد الإشارة…','✓ أحسنت — هذه «أحبّك»!'];
+const camMock=document.getElementById('camMock');
+const camStatusTxt=document.getElementById('camStatus').querySelector('span');
+const statusEN=['Watch the demo…','Hand detected — hold steady','Matched ✓'];
+const statusAR=['شاهد العرض…','تم الكشف عن اليد — اثبت','تطابق ✓'];
 let cs=0;
 function setStep(i){steps.forEach(s=>s.classList.remove('active'));steps[i].classList.add('active');
-  camHand.textContent=stepHands[i];camCheck.textContent=(lang==='ar'?stepMsgAR:stepMsgEN)[i];
-  camCheck.classList.toggle('show',i===2);if(i===2)burst(document.getElementById('camMock'));}
+  camMock.classList.remove('s0','s1','s2');camMock.classList.add('s'+i);
+  camStatusTxt.textContent=(lang==='ar'?statusAR:statusEN)[i];
+  if(i===2&&typeof burst==='function')burst(document.getElementById('camMock'));}
 steps.forEach(s=>s.onclick=()=>{cs=+s.dataset.step;setStep(cs);});
+setStep(0);
 setInterval(()=>{cs=(cs+1)%3;setStep(cs);},2600);
 
 /* ---------- count-up + gamified fills ---------- */
