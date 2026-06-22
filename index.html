@@ -140,6 +140,11 @@ img{max-width:100%;display:block}
 .hand{font-size:5.5rem;line-height:1;filter:drop-shadow(0 8px 16px rgba(15,110,106,.18));transition:transform .3s cubic-bezier(.2,.9,.3,1.4)}
 .hand-img{width:66%;max-width:230px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(15,110,106,.2));transition:transform .4s cubic-bezier(.2,.9,.3,1.4)}
 .hand-stage:hover .hand,.hand-stage:hover .hand-img{transform:scale(1.06) rotate(-3deg)}
+.sign-caption{text-align:center;margin-top:var(--s4)}
+.sign-gloss{font-family:"Rubik";font-weight:800;font-size:1.55rem;color:var(--teal-ink);display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;line-height:1.1}
+.sign-gloss-ar{color:var(--gold);font-weight:700}
+.sign-sub{color:var(--muted);font-size:.95rem;line-height:1.5;margin:8px auto 0;max-width:36ch}
+.sign-cta{width:100%;margin-top:var(--s5)}
 .letter-badge{position:absolute;top:14px;left:14px;background:var(--teal);color:#fff;font-family:"Rubik";font-weight:800;
   width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;box-shadow:var(--soft)}
 .name-input{display:flex;gap:var(--s2);margin-top:var(--s4)}
@@ -358,21 +363,20 @@ footer{padding:64px 0 40px}
         </div>
       </div>
 
-      <!-- interactive signing card -->
+      <!-- featured sign showcase -->
       <div class="sign-card reveal d2">
         <div class="label">
-          <span class="eyebrow" data-ar="جرّبها — اكتب اسمك بالإشارات">Try it — spell your name in signs</span>
+          <span class="eyebrow" data-ar="إشارتك الأولى">Your first sign</span>
           <span class="pill" style="padding:5px 10px" data-ar="قطر">QSL</span>
         </div>
         <div class="hand-stage">
-          <span class="letter-badge" id="letterBadge">أ</span>
-          <img class="hand-img" id="heroHand" src="brand/stitch-34.png" alt="The Sawiyya sign for ‘I love you’" />
+          <img class="hand-img" src="brand/stitch-34.png" alt="The Qatari Sign Language sign for ‘I love you’" />
         </div>
-        <div class="name-input">
-          <input id="nameInput" type="text" placeholder="Type your name…" data-ar-ph="اكتب اسمك…" maxlength="14" aria-label="Your name" />
-          <button class="btn btn-teal" id="spellBtn" aria-label="Fingerspell">→</button>
+        <div class="sign-caption">
+          <div class="sign-gloss">I love you <span class="sign-gloss-ar" dir="rtl" lang="ar">أحبّك</span></div>
+          <p class="sign-sub" data-ar="إشارتك الأولى — تتعلّمها في نحو ٣ دقائق، أنت وكاميرتك فقط.">Your first sign — learn it in about 3 minutes, just you and your camera.</p>
         </div>
-        <div class="fingerspell" id="fingerspell" aria-live="polite"></div>
+        <a class="btn btn-teal sign-cta" data-app href="#start" data-ar="تعلّم هذه الإشارة ←">Learn this sign →</a>
       </div>
     </div>
   </div>
@@ -626,21 +630,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20));
 
-/* ---------- hero letter badge cycle (real sign image stays put) ---------- */
-const arabicL=['أ','ب','ت','ث','ج','ح','خ'];
-let hi=0;const letterBadge=document.getElementById('letterBadge');
-setInterval(()=>{hi=(hi+1)%arabicL.length;letterBadge.textContent=arabicL[hi];},1600);
-
-/* ---------- fingerspell name ---------- */
-const spell=()=>{
-  const v=(document.getElementById('nameInput').value||'sawiyya').replace(/[^a-z]/gi,'').toUpperCase().slice(0,14);
-  const wrap=document.getElementById('fingerspell');wrap.innerHTML='';
-  [...v].forEach((ch,i)=>{const s=document.createElement('span');s.className='fs-letter';s.textContent=ch;wrap.appendChild(s);
-    setTimeout(()=>s.classList.add('show'),i*120);});
-  if(v.length)setTimeout(()=>burst(document.getElementById('spellBtn')),v.length*120+200);
-};
-document.getElementById('spellBtn').onclick=spell;
-document.getElementById('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')spell();});
+/* hero card is now a static featured-sign showcase — no fingerspell JS needed */
 
 /* ---------- how-it-works steps + live camera-drill mock ---------- */
 const steps=[...document.querySelectorAll('.step')];
@@ -700,8 +690,6 @@ addEventListener('pointermove',e=>{const x=(e.clientX/innerWidth-.5),y=(e.client
 /* ---------- language toggle (EN ⇄ AR + RTL) ---------- */
 const htmlEl=document.documentElement;
 const langBtn=document.getElementById('langToggle');
-const phEl=document.getElementById('nameInput');
-const phEN=phEl?phEl.getAttribute('placeholder'):'';
 /* cache the English markup so we can restore it */
 document.querySelectorAll('[data-ar]').forEach(el=>el.dataset.en=el.innerHTML);
 function setLang(l){
@@ -709,19 +697,14 @@ function setLang(l){
   htmlEl.lang=ar?'ar':'en';
   htmlEl.dir=ar?'rtl':'ltr';
   document.querySelectorAll('[data-ar]').forEach(el=>{el.innerHTML=ar?el.dataset.ar:el.dataset.en;});
-  if(phEl)phEl.setAttribute('placeholder',ar?(phEl.dataset.arPh||phEN):phEN);
   if(langBtn){
     langBtn.querySelector('.lt-en').classList.toggle('on',!ar);
     langBtn.querySelector('.lt-ar').classList.toggle('on',ar);
     langBtn.setAttribute('aria-pressed',String(ar));
   }
-  spell();         /* re-seed fingerspell */
   setStep(cs);     /* refresh camera caption language */
 }
 if(langBtn)langBtn.addEventListener('click',()=>setLang(lang==='en'?'ar':'en'));
-
-/* seed fingerspell with the brand name */
-spell();
 </script>
 </body>
 </html>
