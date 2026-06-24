@@ -19,7 +19,7 @@ jobs:
       - name: Generate stats.html
         env:
           POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
-          POSTHOG_PROJECT_ID: "148422"
+          POSTHOG_PROJECT_ID: "208594"
           POSTHOG_HOST: "https://eu.posthog.com"
         run: node scripts/gen-stats.mjs
       - name: Commit if changed
