@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="refresh" content="900" />
+<title>Sawiyya — Live Analytics</title>
+<style>
+  :root{--teal:#0F6E6A;--teal-deep:#0b4f4c;--gold:#E6B24C;--coral:#E8654C;--sand:#F6EFE3;--paper:#FBF7EF;--ink:#1f2d2b;--muted:#6b7a77;--line:#e7ded0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--paper);color:var(--ink);padding:32px 20px 60px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto}
+  .top{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .logo{width:46px;height:46px;border-radius:13px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:1.5rem;box-shadow:0 6px 0 0 var(--teal-deep)}
+  h1{font-size:1.5rem;font-weight:800;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:.92rem;margin:4px 0 26px}
+  .snap{display:inline-flex;align-items:center;gap:7px;background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.78rem;font-weight:700;color:var(--teal);margin-bottom:26px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+  @media(max-width:620px){.cards{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 10px 30px -18px rgba(15,110,106,.25)}
+  .card .n{font-size:2.6rem;font-weight:800;line-height:1;color:var(--teal)}
+  .card .l{margin-top:8px;font-size:.86rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .card.coral .n{color:var(--coral)} .card.gold .n{color:#c9912f}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 10px 30px -18px rgba(15,110,106,.25);margin-top:14px}
+  .panel h2{font-size:1.05rem;font-weight:800;margin-bottom:4px}
+  .panel .ph{color:var(--muted);font-size:.85rem;margin-bottom:18px}
+  .row{display:flex;align-items:center;gap:14px;margin:12px 0}
+  .row .flag{font-size:1.5rem;width:30px;text-align:center}
+  .row .name{width:150px;font-weight:600;font-size:.95rem}
+  .bar{flex:1;height:14px;background:var(--sand);border-radius:999px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#1aa39c);border-radius:999px}
+  .row .v{width:60px;text-align:right;font-weight:700;color:var(--teal)}
+  .note{background:#FFF7E8;border:1px solid #f0dcae;border-radius:16px;padding:16px 18px;margin-top:22px;font-size:.92rem;line-height:1.5;color:#7a5e1f}
+  .foot{color:var(--muted);font-size:.8rem;margin-top:30px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="logo">🤟</div><h1>Sawiyya — Website Analytics</h1></div>
+  <p class="sub">Who's visiting <strong>sawiyya.com</strong>, and from where.</p>
+  <span class="snap">📸 Snapshot — 24 June 2026 · auto-updates go live once analytics key is added</span>
+  <div class="cards">
+    <div class="card"><div class="n">2</div><div class="l">Page views</div></div>
+    <div class="card gold"><div class="n">2</div><div class="l">Unique visitors</div></div>
+    <div class="card coral"><div class="n">0</div><div class="l">“Start learning” clicks</div></div>
+  </div>
+  <div class="panel">
+    <h2>Visitors by country</h2>
+    <p class="ph">Last 30 days</p>
+    <div class="row"><span class="flag">🇬🇧</span><span class="name">United Kingdom</span><span class="bar"><i style="width:100%"></i></span><span class="v">1</span></div>
+    <div class="row"><span class="flag">🇨🇦</span><span class="name">Canada</span><span class="bar"><i style="width:100%"></i></span><span class="v">1</span></div>
+  </div>
+  <div class="note"><strong>Heads-up:</strong> these 2 visits are the setup/verification visits — no real outside visitors yet. Once the one-time analytics key is added, this page starts refreshing itself automatically every hour.</div>
+  <p class="foot">Numbers cover the last 30 days. Refresh or reopen this page anytime for the latest.</p>
+</div>
+</body>
+</html>
