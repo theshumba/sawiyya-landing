@@ -121,7 +121,8 @@ img{max-width:100%;display:block}
 .hero-tagline .ar{font-family:"Readex Pro";font-weight:700;color:var(--gold-deep);font-size:1.25rem}
 .hero-tagline .bar{width:24px;height:2px;background:var(--gold);border-radius:2px;display:inline-block}
 .hero-cta{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)}
-.hero-trust{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s6);color:var(--muted);font-size:.9rem}
+.hero-trust{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s6);color:var(--muted);font-size:.9rem}
+.ht-chip{background:var(--gold-soft);color:var(--teal-ink);font-family:"Rubik";font-weight:800;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:999px;white-space:nowrap;flex:none}
 .avatars{display:flex}
 .avatars span{width:30px;height:30px;border-radius:50%;border:2px solid var(--paper);margin-left:-8px;display:grid;place-items:center;font-size:.85rem}
 .avatars span:first-child{margin-left:0}
@@ -355,11 +356,8 @@ footer{padding:64px 0 40px}
           <a class="btn btn-ghost" href="#how" data-ar="شاهد كيف تعمل ←">See how it works →</a>
         </div>
         <div class="hero-trust reveal d4">
-          <div class="avatars">
-            <span style="background:#F0C879">🧕</span><span style="background:#F08A75">🧑</span>
-            <span style="background:#9fd3cf">👵</span><span style="background:#cbb8e6">🧑‍🦱</span>
-          </div>
-          <span data-ar="انضمّ إلى من يتعلّمون ليلتقوا مجتمع الصُمّ في منتصف الطريق.">Join the people learning to meet the Deaf community halfway.</span>
+          <span class="ht-chip" data-ar="جديد">New</span>
+          <span data-ar="كن من أوائل من يتعلّمون لغة الإشارة القطرية ويلتقون مجتمع الصُمّ في منتصف الطريق.">Be one of the first to learn Qatari Sign Language and meet the Deaf community halfway.</span>
         </div>
       </div>
 
@@ -618,7 +616,16 @@ footer{padding:64px 0 40px}
    Change this ONE line to your real app URL.
    ============================================================ */
 const APP_URL='https://theshumba.github.io/sawiyya/';
-document.querySelectorAll('[data-app]').forEach(a=>{a.setAttribute('href',APP_URL);});
+document.querySelectorAll('[data-app]').forEach(a=>{
+  a.setAttribute('href',APP_URL);
+  /* conversion tracking — log which CTA sent people to the app (landing-side only) */
+  a.addEventListener('click',()=>{
+    if(window.posthog) posthog.capture('start_learning_clicked',{
+      cta_label:(a.textContent||'').trim(),
+      cta_section:(a.closest('section,header,footer')||{}).id||'page'
+    });
+  });
+});
 
 let lang='en';
 
