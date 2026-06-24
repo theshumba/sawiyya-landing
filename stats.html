@@ -14,7 +14,9 @@
   .logo{width:46px;height:46px;border-radius:13px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:1.5rem;box-shadow:0 6px 0 0 var(--teal-deep)}
   h1{font-size:1.5rem;font-weight:800;letter-spacing:-.01em}
   .sub{color:var(--muted);font-size:.92rem;margin:4px 0 26px}
-  .snap{display:inline-flex;align-items:center;gap:7px;background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:.78rem;font-weight:700;color:var(--teal);margin-bottom:26px}
+  .snap{display:inline-flex;align-items:center;gap:7px;background:#e7f6ef;border:1px solid #bfe6d4;border-radius:999px;padding:5px 13px;font-size:.78rem;font-weight:700;color:var(--teal);margin-bottom:26px}
+  .dot{width:8px;height:8px;border-radius:50%;background:#2ec07a;box-shadow:0 0 0 0 rgba(46,192,122,.6);animation:p 1.8s ease-out infinite}
+  @keyframes p{0%{box-shadow:0 0 0 0 rgba(46,192,122,.5)}100%{box-shadow:0 0 0 8px rgba(46,192,122,0)}}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
   @media(max-width:620px){.cards{grid-template-columns:1fr}}
   .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 10px 30px -18px rgba(15,110,106,.25)}
@@ -30,7 +32,9 @@
   .bar{flex:1;height:14px;background:var(--sand);border-radius:999px;overflow:hidden}
   .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#1aa39c);border-radius:999px}
   .row .v{width:60px;text-align:right;font-weight:700;color:var(--teal)}
-  .note{background:#FFF7E8;border:1px solid #f0dcae;border-radius:16px;padding:16px 18px;margin-top:22px;font-size:.92rem;line-height:1.5;color:#7a5e1f}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:.95rem;padding:13px 20px;border-radius:14px}
+  .btn-ghost{background:transparent;color:var(--teal);border:2px solid var(--line)}
   .foot{color:var(--muted);font-size:.8rem;margin-top:30px;line-height:1.6}
 </style>
 </head>
@@ -38,20 +42,24 @@
 <div class="wrap">
   <div class="top"><div class="logo">🤟</div><h1>Sawiyya — Website Analytics</h1></div>
   <p class="sub">Who's visiting <strong>sawiyya.com</strong>, and from where.</p>
-  <span class="snap">📸 Snapshot — 24 June 2026 · auto-updates go live once analytics key is added</span>
+  <span class="snap"><span class="dot"></span> Live · auto-updates hourly · last refreshed 24 Jun 2026, 20:57 UTC</span>
   <div class="cards">
-    <div class="card"><div class="n">2</div><div class="l">Page views</div></div>
-    <div class="card gold"><div class="n">2</div><div class="l">Unique visitors</div></div>
-    <div class="card coral"><div class="n">0</div><div class="l">“Start learning” clicks</div></div>
+    <div class="card"><div class="n">8</div><div class="l">Page views</div></div>
+    <div class="card gold"><div class="n">3</div><div class="l">Unique visitors</div></div>
+    <div class="card coral"><div class="n">6</div><div class="l">“Start learning” clicks</div></div>
   </div>
   <div class="panel">
     <h2>Visitors by country</h2>
     <p class="ph">Last 30 days</p>
-    <div class="row"><span class="flag">🇬🇧</span><span class="name">United Kingdom</span><span class="bar"><i style="width:100%"></i></span><span class="v">1</span></div>
-    <div class="row"><span class="flag">🇨🇦</span><span class="name">Canada</span><span class="bar"><i style="width:100%"></i></span><span class="v">1</span></div>
+    
+    <div class="row"><span class="flag">🇯🇴</span><span class="name">Jordan</span><span class="bar"><i style="width:100%"></i></span><span class="v">6</span></div>
+    <div class="row"><span class="flag">🇺🇸</span><span class="name">United States</span><span class="bar"><i style="width:17%"></i></span><span class="v">1</span></div>
+    <div class="row"><span class="flag">🇬🇧</span><span class="name">United Kingdom</span><span class="bar"><i style="width:17%"></i></span><span class="v">1</span></div>
   </div>
-  <div class="note"><strong>Heads-up:</strong> these 2 visits are the setup/verification visits — no real outside visitors yet. Once the one-time analytics key is added, this page starts refreshing itself automatically every hour.</div>
-  <p class="foot">Numbers cover the last 30 days. Refresh or reopen this page anytime for the latest.</p>
+  <div class="actions">
+    <a class="btn btn-ghost" href="https://sawiyya.com" target="_blank">Visit sawiyya.com</a>
+  </div>
+  <p class="foot">This page updates itself automatically — just refresh or reopen it anytime to see the latest. Numbers cover the last 30 days.</p>
 </div>
 </body>
 </html>
