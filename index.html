@@ -265,8 +265,10 @@ section{position:relative}
 .lang-card .lname{font-family:"Rubik";font-weight:700;margin-top:10px;color:var(--teal-ink);font-size:1rem}
 .lang-card .soon{display:inline-block;margin-top:10px;font-size:.7rem;font-weight:700;text-transform:uppercase;
   letter-spacing:.06em;color:var(--muted);background:var(--sand);padding:4px 10px;border-radius:999px}
-.lang-card .notify{display:block;margin:12px auto 0;font-size:.8rem;font-weight:600;color:var(--teal)}
+.lang-card .notify{display:block;margin:12px auto 0;font-size:.8rem;font-weight:600;color:var(--teal);
+  background:none;border:0;cursor:pointer;font-family:inherit;padding:0}
 .lang-card .notify:hover{color:var(--coral)}
+.lang-card .notify:disabled{color:var(--teal);cursor:default;opacity:.85}
 
 /* ============================================================ IMPACT */
 .impact{display:grid;gap:var(--s5)}
@@ -540,14 +542,14 @@ footer{padding:64px 0 40px}
     </div>
 
     <div class="lang-grid">
-      <div class="lang-card reveal"><div class="flag">🇸🇦</div><div class="lname" data-ar="إشارة السعودية">Saudi SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal d1"><div class="flag">🇦🇪</div><div class="lname" data-ar="إشارة الإمارات">Emirati SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal d2"><div class="flag">🇯🇴</div><div class="lname" data-ar="إشارة الشام">Levantine SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal d3"><div class="flag">🇪🇬</div><div class="lname" data-ar="إشارة مصر">Egyptian SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal"><div class="flag">🇰🇼</div><div class="lname" data-ar="إشارة الكويت">Kuwaiti SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal d1"><div class="flag">🇧🇭</div><div class="lname" data-ar="إشارة البحرين">Bahraini SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal d2"><div class="flag">🇴🇲</div><div class="lname" data-ar="إشارة عُمان">Omani SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
-      <div class="lang-card reveal d3"><div class="flag">🇲🇦</div><div class="lname" data-ar="إشارة المغرب العربي">Maghrebi SL</div><span class="soon" data-ar="قريباً">Coming soon</span><a class="notify" href="#start" data-ar="🔔 أبلغني">🔔 Notify me</a></div>
+      <div class="lang-card reveal"><div class="flag">🇸🇦</div><div class="lname" data-ar="إشارة السعودية">Saudi SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="saudi" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal d1"><div class="flag">🇦🇪</div><div class="lname" data-ar="إشارة الإمارات">Emirati SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="emirati" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal d2"><div class="flag">🇯🇴</div><div class="lname" data-ar="إشارة الشام">Levantine SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="levantine" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal d3"><div class="flag">🇪🇬</div><div class="lname" data-ar="إشارة مصر">Egyptian SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="egyptian" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal"><div class="flag">🇰🇼</div><div class="lname" data-ar="إشارة الكويت">Kuwaiti SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="kuwaiti" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal d1"><div class="flag">🇧🇭</div><div class="lname" data-ar="إشارة البحرين">Bahraini SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="bahraini" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal d2"><div class="flag">🇴🇲</div><div class="lname" data-ar="إشارة عُمان">Omani SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="omani" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
+      <div class="lang-card reveal d3"><div class="flag">🇲🇦</div><div class="lname" data-ar="إشارة المغرب العربي">Maghrebi SL</div><span class="soon" data-ar="قريباً">Coming soon</span><button type="button" class="notify" data-dialect="maghrebi" data-ar="🔔 أبلغني">🔔 Notify me</button></div>
     </div>
   </div>
 </section>
@@ -625,18 +627,25 @@ footer{padding:64px 0 40px}
    Change this ONE line to your real app URL.
    ============================================================ */
 const APP_URL='https://theshumba.github.io/sawiyya/';
+/* app links carry the language choice into the app (M27): ?lang=ar is honoured
+   by the app's first-run onboarding + boot splash. Re-run on every toggle. */
+function refreshAppLinks(){
+  const suffix=lang==='ar'?'?lang=ar':'';
+  document.querySelectorAll('[data-app]').forEach(a=>a.setAttribute('href',APP_URL+suffix));
+}
 document.querySelectorAll('[data-app]').forEach(a=>{
-  a.setAttribute('href',APP_URL);
   /* conversion tracking — log which CTA sent people to the app (landing-side only) */
   a.addEventListener('click',()=>{
     if(window.posthog) posthog.capture('start_learning_clicked',{
       cta_label:(a.textContent||'').trim(),
-      cta_section:(a.closest('section,header,footer')||{}).id||'page'
+      cta_section:(a.closest('section,header,footer')||{}).id||'page',
+      lang:lang
     });
   });
 });
 
 let lang='en';
+refreshAppLinks();
 
 /* ---------- scroll reveals ---------- */
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.18});
@@ -695,8 +704,21 @@ function burst(anchor){
   }
 }
 document.getElementById('finalCta').addEventListener('click',e=>burst(e.currentTarget));
-/* notify-me pills celebrate too */
-document.querySelectorAll('.lang-card .notify').forEach(a=>a.addEventListener('click',e=>burst(e.currentTarget)));
+/* notify-me pills record dialect interest as a PostHog event (H19).
+   The pill only claims "Interest noted" AFTER the event is handed to PostHog —
+   if analytics is unavailable (blocked/missing) nothing is stored, so the
+   label stays unchanged and no false confirmation is shown. */
+const NOTED_EN='Interest noted ✓', NOTED_AR='سجّلنا اهتمامك ✓';
+document.querySelectorAll('.lang-card .notify').forEach(b=>b.addEventListener('click',()=>{
+  if(window.posthog){
+    posthog.capture('dialect_notify_clicked',{dialect:b.dataset.dialect,lang:lang});
+    /* update both language variants so the EN⇄AR toggle keeps the noted state */
+    b.dataset.en=NOTED_EN; b.dataset.ar=NOTED_AR;
+    b.textContent=lang==='ar'?NOTED_AR:NOTED_EN;
+    b.disabled=true;
+  }
+  burst(b);
+}));
 
 /* ---------- hero blobs follow cursor (subtle) ---------- */
 const b1=document.querySelector('.blob.b1'),b2=document.querySelector('.blob.b2');
@@ -719,8 +741,22 @@ function setLang(l){
     langBtn.setAttribute('aria-pressed',String(ar));
   }
   setStep(cs);     /* refresh camera caption language */
+  refreshAppLinks(); /* app links carry ?lang=ar into the app (M27) */
 }
-if(langBtn)langBtn.addEventListener('click',()=>setLang(lang==='en'?'ar':'en'));
+if(langBtn)langBtn.addEventListener('click',()=>{
+  const next=lang==='en'?'ar':'en';
+  try{localStorage.setItem('sawiyya.landing.lang',next);}catch(e){/* private mode */}
+  setLang(next);
+});
+
+/* language init (M27): explicit stored choice > browser Arabic > English.
+   Runs last so setLang can safely touch everything defined above. */
+try{
+  const saved=localStorage.getItem('sawiyya.landing.lang');
+  const detected=(navigator.language||'').toLowerCase().startsWith('ar')?'ar':'en';
+  const initial=(saved==='ar'||saved==='en')?saved:detected;
+  if(initial==='ar')setLang('ar');
+}catch(e){/* storage unavailable — stay English */}
 </script>
 </body>
 </html>
