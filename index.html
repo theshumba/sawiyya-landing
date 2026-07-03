@@ -711,17 +711,24 @@ function burst(anchor){
 }
 document.getElementById('finalCta').addEventListener('click',e=>burst(e.currentTarget));
 /* notify-me pills record dialect interest as a PostHog event (H19).
-   The pill only claims "Interest noted" AFTER the event is handed to PostHog —
-   if analytics is unavailable (blocked/missing) nothing is stored, so the
-   label stays unchanged and no false confirmation is shown. */
+   The pill only claims "Interest noted" once PostHog has ACTUALLY loaded —
+   posthog.__loaded is set by the real library, while the snippet's stub is
+   always defined, so `window.posthog` alone proves nothing. If analytics is
+   blocked, the label stays unchanged: no false confirmation. Clicks land in
+   the stub queue regardless, so a slow-loading library still receives the
+   event and the label confirms via the retry below. */
 const NOTED_EN='Interest noted ✓', NOTED_AR='سجّلنا اهتمامك ✓';
 document.querySelectorAll('.lang-card .notify').forEach(b=>b.addEventListener('click',()=>{
   if(window.posthog){
     posthog.capture('dialect_notify_clicked',{dialect:b.dataset.dialect,lang:lang});
-    /* update both language variants so the EN⇄AR toggle keeps the noted state */
-    b.dataset.en=NOTED_EN; b.dataset.ar=NOTED_AR;
-    b.textContent=lang==='ar'?NOTED_AR:NOTED_EN;
-    b.disabled=true;
+    const note=()=>{
+      /* update both language variants so the EN⇄AR toggle keeps the noted state */
+      b.dataset.en=NOTED_EN; b.dataset.ar=NOTED_AR;
+      b.textContent=lang==='ar'?NOTED_AR:NOTED_EN;
+      b.disabled=true;
+    };
+    if(posthog.__loaded)note();
+    else setTimeout(()=>{if(posthog.__loaded)note();},1500);
   }
   burst(b);
 }));
