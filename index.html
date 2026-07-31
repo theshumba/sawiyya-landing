@@ -293,10 +293,15 @@ section{position:relative}
 /* ============================================================ FOOTER */
 footer{padding:64px 0 40px}
 .foot{display:grid;gap:var(--s6);grid-template-columns:1fr}
-@media(min-width:760px){.foot{grid-template-columns:1.4fr 1fr 1fr}}
+@media(min-width:560px){.foot{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.foot{grid-template-columns:1.4fr 1fr 1fr 1.2fr}}
 .foot a{color:var(--muted);display:block;padding:5px 0;font-size:.95rem}
 .foot a:hover{color:var(--teal)}
 .foot h4{font-family:"Rubik";font-size:.95rem;margin-bottom:var(--s3)}
+.foot .contact-note{font-size:.9rem;color:var(--muted);margin-bottom:var(--s3);line-height:1.5}
+.foot a.contact-link{display:flex;align-items:center;gap:8px;word-break:break-word;font-weight:500;color:var(--ink)}
+.foot a.contact-link:hover{color:var(--teal)}
+.foot a.contact-link svg{flex:0 0 auto;width:16px;height:16px;fill:var(--teal)}
 .foot-bottom{margin-top:var(--s7);padding-top:var(--s5);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:var(--s4);justify-content:space-between;color:var(--muted);font-size:.88rem}
 
 /* confetti */
@@ -618,6 +623,12 @@ footer{padding:64px 0 40px}
       <div>
         <h4 data-ar="سويّة">Sawiyya</h4>
         <a href="#flip" data-ar="رسالتنا">Our mission</a><a href="#impact" data-ar="الأثر">Impact</a><a href="#start" data-app data-ar="ابدأ">Get started</a>
+      </div>
+      <div>
+        <h4 data-ar="تواصل معنا">Contact</h4>
+        <p class="contact-note" data-ar="سؤال، ملاحظة، أو رغبة في التعاون؟ راسلني مباشرةً.">A question, some feedback, or want to work together? Write to me directly.</p>
+        <a class="contact-link" href="mailto:ndoromelusi@gmail.com?subject=Sawiyya" data-contact="email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.24-8 4.76-8-4.76V6l8 4.76L20 6v2.24Z"/></svg>ndoromelusi@gmail.com</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/melusi-ndoro" target="_blank" rel="noopener" data-contact="linkedin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.76-1.95C21.6 8.75 23 11 23 14.3V21h-4v-5.9c0-1.4-.03-3.2-2-3.2s-2.3 1.5-2.3 3.1V21h-4V9Z"/></svg>LinkedIn</a>
       </div>
     </div>
     <div class="foot-bottom">
