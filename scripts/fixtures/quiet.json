@@ -1,0 +1,9 @@
+{
+  "_note": "Preview fixture: the real shape of sawiyya.com in Sept 2026 — real all-time numbers, an empty 30-day window.",
+  "all": [38, 21, 18],
+  "last30": [0, 0, 0],
+  "countries": [["United Kingdom","GB",21],["Qatar","QA",9],["United Arab Emirates","AE",5],["Zimbabwe","ZW",3]],
+  "firstSeen": "2026-06-23T09:14:00Z",
+  "lastSeen": "2026-07-04T13:12:00Z",
+  "weeks": [["2026-06-22",13],["2026-06-29",21],["2026-07-06",4],["2026-07-13",0],["2026-07-20",0],["2026-07-27",0],["2026-08-03",0],["2026-08-10",0],["2026-08-17",0],["2026-08-24",0],["2026-08-31",0]]
+}

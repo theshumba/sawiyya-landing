@@ -1,0 +1,9 @@
+{
+  "_note": "Preview fixture: traffic arriving right now.",
+  "all": [412, 233, 96],
+  "last30": [140, 88, 31],
+  "countries": [["Qatar","QA",180],["United Kingdom","GB",120],["Saudi Arabia","SA",60],["Egypt","EG",52]],
+  "firstSeen": "2026-06-23T09:14:00Z",
+  "lastSeen": "2026-09-04T02:00:00Z",
+  "weeks": [["2026-07-27",30],["2026-08-03",44],["2026-08-10",61],["2026-08-17",70],["2026-08-24",95],["2026-08-31",112]]
+}

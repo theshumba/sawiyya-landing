@@ -1,0 +1,9 @@
+{
+  "_note": "Preview fixture: the optional span/trend queries failed, so those parts must degrade quietly.",
+  "all": [38, 21, 18],
+  "last30": [0, 0, 0],
+  "countries": [["United Kingdom","GB",21]],
+  "firstSeen": null,
+  "lastSeen": null,
+  "weeks": []
+}
