@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="refresh" content="900" />
-<title>Sawiyya — Live Analytics</title>
+<title>Sawiyya · Live Analytics</title>
 <style>
   :root{--teal:#0F6E6A;--teal-deep:#0b4f4c;--gold:#E6B24C;--coral:#E8654C;--sand:#F6EFE3;--paper:#FBF7EF;--ink:#1f2d2b;--muted:#6b7a77;--line:#e7ded0}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -22,16 +22,29 @@
   .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 10px 30px -18px rgba(15,110,106,.25)}
   .card .n{font-size:2.6rem;font-weight:800;line-height:1;color:var(--teal)}
   .card .l{margin-top:8px;font-size:.86rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .card .sub30{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:.82rem;font-weight:600;color:var(--muted)}
   .card.coral .n{color:var(--coral)} .card.gold .n{color:#c9912f}
+  .status{background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:14px;padding:15px 18px;font-size:.92rem;line-height:1.55;color:var(--ink);margin-top:14px}
   .panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 10px 30px -18px rgba(15,110,106,.25);margin-top:14px}
   .panel h2{font-size:1.05rem;font-weight:800;margin-bottom:4px}
   .panel .ph{color:var(--muted);font-size:.85rem;margin-bottom:18px}
   .row{display:flex;align-items:center;gap:14px;margin:12px 0}
   .row .flag{font-size:1.5rem;width:30px;text-align:center}
-  .row .name{width:150px;font-weight:600;font-size:.95rem}
+  .row .name{width:175px;font-weight:600;font-size:.95rem}
   .bar{flex:1;height:14px;background:var(--sand);border-radius:999px;overflow:hidden}
   .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#1aa39c);border-radius:999px}
-  .row .v{width:60px;text-align:right;font-weight:700;color:var(--teal)}
+  .row .v{width:52px;text-align:right;font-weight:700;color:var(--teal)}
+  .chart{display:flex;align-items:flex-end;gap:6px;overflow-x:auto;padding-bottom:4px}
+  .wk{flex:1 0 42px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:160px}
+  .wk .wv{font-size:.75rem;font-weight:700;color:var(--teal);margin-bottom:4px}
+  .wk .wb{width:100%;max-width:34px;background:linear-gradient(180deg,#1aa39c,var(--teal));border-radius:7px 7px 3px 3px;min-height:3px}
+  .wk.zero .wv{color:var(--muted)} .wk.zero .wb{background:var(--line)}
+  .wk .wl{font-size:.68rem;color:var(--muted);margin-top:7px;white-space:nowrap}
+  @media(max-width:620px){
+    .row{gap:9px} .row .flag{width:22px;font-size:1.2rem}
+    .row .name{width:108px;font-size:.88rem} .row .v{width:32px}
+    .wk{flex:0 0 38px}
+  }
   .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
   .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:.95rem;padding:13px 20px;border-radius:14px}
   .btn-ghost{background:transparent;color:var(--teal);border:2px solid var(--line)}
@@ -40,23 +53,38 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><div class="logo">🤟</div><h1>Sawiyya — Website Analytics</h1></div>
+  <div class="top"><div class="logo">🤟</div><h1>Sawiyya · Website Analytics</h1></div>
   <p class="sub">Who's visiting <strong>sawiyya.com</strong>, and from where.</p>
-  <span class="snap"><span class="dot"></span> Live · auto-updates hourly · last refreshed 4 Sept 2026, 00:07 UTC</span>
+  <span class="snap"><span class="dot"></span> Live · auto-updates hourly · last refreshed 4 Sept 2026, 03:37 UTC</span>
   <div class="cards">
-    <div class="card"><div class="n">0</div><div class="l">Page views</div></div>
-    <div class="card gold"><div class="n">0</div><div class="l">Unique visitors</div></div>
-    <div class="card coral"><div class="n">0</div><div class="l">“Start learning” clicks</div></div>
+    <div class="card"><div class="n">38</div><div class="l">Page views</div><div class="sub30">0 in the last 30 days</div></div>
+    <div class="card gold"><div class="n">21</div><div class="l">Unique visitors</div><div class="sub30">0 in the last 30 days</div></div>
+    <div class="card coral"><div class="n">18</div><div class="l">“Start learning” clicks</div><div class="sub30">0 in the last 30 days</div></div>
+  </div>
+  <p class="status">Quiet right now: nobody has visited in the last 30 days. The last visit was 4 July 2026, 61 days ago. The totals above are still your real all-time numbers.</p>
+  
+  <div class="panel">
+    <h2>Page views by week</h2>
+    <p class="ph">Every week since the site went up</p>
+    <div class="chart"><div class="wk" title="Week of 22 Jun: 20 page views"><span class="wv">20</span><span class="wb" style="height:100%"></span><span class="wl">22 Jun</span></div><div class="wk" title="Week of 29 Jun: 18 page views"><span class="wv">18</span><span class="wb" style="height:90%"></span><span class="wl">29 Jun</span></div></div>
   </div>
   <div class="panel">
     <h2>Visitors by country</h2>
-    <p class="ph">Last 30 days</p>
-    <div class="row"><span class="flag">🌱</span><span class="name" style="width:auto">No visitors yet — share the site and they'll appear here.</span></div>
+    <p class="ph">All time</p>
+    
+    <div class="row"><span class="flag">🇬🇧</span><span class="name">United Kingdom</span><span class="bar"><i style="width:100%"></i></span><span class="v">16</span></div>
+    <div class="row"><span class="flag">🇺🇸</span><span class="name">United States</span><span class="bar"><i style="width:63%"></i></span><span class="v">10</span></div>
+    <div class="row"><span class="flag">🇯🇴</span><span class="name">Jordan</span><span class="bar"><i style="width:38%"></i></span><span class="v">6</span></div>
+    <div class="row"><span class="flag">🇨🇦</span><span class="name">Canada</span><span class="bar"><i style="width:13%"></i></span><span class="v">2</span></div>
+    <div class="row"><span class="flag">🇹🇭</span><span class="name">Thailand</span><span class="bar"><i style="width:6%"></i></span><span class="v">1</span></div>
+    <div class="row"><span class="flag">🇪🇬</span><span class="name">Egypt</span><span class="bar"><i style="width:6%"></i></span><span class="v">1</span></div>
+    <div class="row"><span class="flag">🇲🇦</span><span class="name">Morocco</span><span class="bar"><i style="width:6%"></i></span><span class="v">1</span></div>
+    <div class="row"><span class="flag">🇹🇷</span><span class="name">Türkiye</span><span class="bar"><i style="width:6%"></i></span><span class="v">1</span></div>
   </div>
   <div class="actions">
     <a class="btn btn-ghost" href="https://sawiyya.com" target="_blank">Visit sawiyya.com</a>
   </div>
-  <p class="foot">This page updates itself automatically — just refresh or reopen it anytime to see the latest. Numbers cover the last 30 days.</p>
+  <p class="foot">This page updates itself automatically, so just refresh or reopen it anytime to see the latest. The big number on each card is the all-time total; the line under it is the last 30 days only. All-time totals cover everything since 24 June 2026.</p>
 </div>
 </body>
 </html>
