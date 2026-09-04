@@ -1,0 +1,9 @@
+{
+  "_note": "Preview fixture matching what PostHog actually returns today: only the weeks that had events.",
+  "all": [38, 21, 18],
+  "last30": [0, 0, 0],
+  "countries": [["United Kingdom","GB",21],["Qatar","QA",9]],
+  "firstSeen": "2026-06-23T09:14:00Z",
+  "lastSeen": "2026-07-04T13:12:00Z",
+  "weeks": [["2026-06-22T00:00:00Z",13],["2026-06-29T00:00:00Z",25]]
+}

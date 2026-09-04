@@ -100,7 +100,7 @@ const data = await fetchData();
 const [views, visitors, clicks] = data.all.map(Number);
 const [views30, visitors30, clicks30] = data.last30.map(Number);
 const countries = data.countries || [];
-const weeks = data.weeks || [];
+const weeksRaw = data.weeks || [];
 
 function flag(code) {
   if (!code || code.length !== 2) return "🌍";
@@ -138,6 +138,29 @@ const countryRows = countries.length
       .join("")
   : `<div class="row"><span class="flag">🌱</span><span class="name" style="width:auto">No visitors yet. Share the site and they'll appear here.</span></div>`;
 
+/* PostHog only returns weeks that actually had events, so a gap of no traffic
+   would silently vanish from the chart and a two-month drought would look like
+   two busy weeks side by side. Fill every week from the first one to this one. */
+function fillWeeks(rows) {
+  if (!rows.length) return [];
+  const monday = (d) => {
+    const u = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+    u.setUTCDate(u.getUTCDate() - ((u.getUTCDay() + 6) % 7));
+    return u;
+  };
+  const counts = new Map(rows.map(([w, v]) => [monday(new Date(w)).toISOString().slice(0, 10), Number(v)]));
+  const out = [];
+  for (let d = monday(new Date(rows[0][0])), end = monday(now); d <= end; d.setUTCDate(d.getUTCDate() + 7)) {
+    const key = d.toISOString().slice(0, 10);
+    out.push([key, counts.get(key) || 0]);
+  }
+  const recent = out.slice(-26);
+  /* A drought longer than the window would leave 26 empty bars and hide the
+     history entirely, so in that case show the weeks that actually have data. */
+  return recent.some(([, v]) => v > 0) ? recent : out.slice(0, 26);
+}
+
+const weeks = fillWeeks(weeksRaw);
 const maxWeek = Math.max(1, ...weeks.map((w) => Number(w[1])));
 const weekBars = weeks
   .map(([w, v]) => {
