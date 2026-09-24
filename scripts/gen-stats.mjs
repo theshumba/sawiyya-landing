@@ -14,7 +14,7 @@ import { writeFileSync, readFileSync } from "node:fs";
 
 const KEY = process.env.POSTHOG_API_KEY;
 const FIXTURE = process.env.STATS_FIXTURE;
-const PROJECT = process.env.POSTHOG_PROJECT_ID || "148422";
+const PROJECT = process.env.POSTHOG_PROJECT_ID || "208594";
 const HOST = process.env.POSTHOG_HOST || "https://eu.posthog.com";
 
 if (!KEY && !FIXTURE) {
